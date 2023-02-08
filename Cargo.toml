@@ -1,0 +1,32 @@
+[package]
+name = "moralis-api"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+dotenv = "0.15.0"
+env_logger = "0.10.0"
+structopt = "0.3"
+rand = "0.8.3"
+hex = "0.4.3"
+futures = "0.3"
+crossbeam = "0.8"
+actix = "0.13"
+actix-web = "4.0"
+actix-web-actors = "4.1"
+actix-cors = "0.6.1"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0.87"
+jsonrpsee-types = "0.15.1"
+url = { version = "2", features = ["serde"] }
+derive_more = { version = "0.99.0", default-features = false }
+codec = { package = "parity-scale-codec", version = "3.2.1", default-features = false, features = ["derive", "full", "bit-vec"] }
+scale-info = { version = "2.0.0", features = ["bit-vec"] }
+ethcontract = { version = "0.23.1" }
+log = "0.4"
+snailquote = "0.3.1"
+awc = {version = "3.0.0-beta.21", features = ["openssl"]}
+
+[features]
+default = ["std"]
+std = ["codec/std", "scale-info/std"]
