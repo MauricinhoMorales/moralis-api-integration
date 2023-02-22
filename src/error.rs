@@ -9,7 +9,7 @@ pub enum ApiError {
     SerdeError(serde_json::Error),
     ContractError(DeployError),
     MethodError(MethodError),
-    TransportError
+    // TransportError
 }
 
 impl std::fmt::Display for ApiError {
@@ -19,7 +19,7 @@ impl std::fmt::Display for ApiError {
             Self::SerdeError(error) => write!(f, "Error when parsing JSON: {}", error.to_string()),
             Self::ContractError(error) => write!(f, "Locating deployed contract failed: {}", error.to_string()),
             Self::MethodError(error) => write!(f, "Contract method failed: {}", error.to_string()),
-            Self::TransportError => write!(f, "Create transport failed")
+            // Self::TransportError => write!(f, "Create transport failed")
         }
     }
 }
@@ -31,7 +31,7 @@ impl ApiError {
             Self::SerdeError(_) => "SerdeError".to_string(),
             Self::ContractError(_) => "ContractError".to_string(),
             Self::MethodError(_) => "MethodError".to_string(),
-            Self::TransportError => "TransportError".to_string()
+            // Self::TransportError => "TransportError".to_string()
         }
     }
 }
@@ -42,7 +42,7 @@ impl ResponseError for ApiError {
             Self::SerdeError(_) => StatusCode::BAD_REQUEST,
             Self::ContractError(_) => StatusCode::INTERNAL_SERVER_ERROR,
             Self::MethodError(_) => StatusCode::INTERNAL_SERVER_ERROR,
-            Self::TransportError => StatusCode::INTERNAL_SERVER_ERROR,
+            // Self::TransportError => StatusCode::INTERNAL_SERVER_ERROR,
         }
     }
 

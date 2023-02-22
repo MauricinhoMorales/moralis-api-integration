@@ -7,13 +7,12 @@ use actix_web::{
 use dotenv::dotenv;
 use structopt::StructOpt;
 
-mod config;
-mod moralis;
 mod command;
+mod config;
 mod error;
+mod moralis;
 
 use command::*;
-
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -21,7 +20,7 @@ async fn main() -> std::io::Result<()> {
     env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
 
     let opt = Opt::from_args();
-    
+
     let env = config::init();
 
     HttpServer::new(move || {
@@ -39,8 +38,19 @@ async fn main() -> std::io::Result<()> {
             .wrap(middleware::Compress::default())
             .wrap(middleware::Logger::default())
             .wrap(cors)
-            .route("moralis/get_balance", web::get().to(moralis::get_balance))     
-            .app_data(Data::new(env.clone()))       
+            .route(
+                "moralis/get_wallet_balance",
+                web::get().to(moralis::get_wallet_balance),
+            )
+            .route(
+                "moralis/get_wallet_transfers",
+                web::get().to(moralis::get_wallet_transfers),
+            )
+            .route(
+                "moralis/get_contract_transfers",
+                web::get().to(moralis::get_contract_transfers),
+            )
+            .app_data(Data::new(env.clone()))
     })
     .bind((opt.listen.host_str().unwrap(), opt.listen.port().unwrap()))?
     .run()
